@@ -26,4 +26,13 @@ public class Demo1Application {
 		model.addAttribute("name", name);
 		return "index";
 	}
+
+	@GetMapping("/about")
+	String getAboutPage() {
+		return "about";
+	}
+	@GetMapping("/vacancies")
+	String getVacanciesPage() {
+		return "vacancies";
+	}
 }
