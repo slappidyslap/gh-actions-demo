@@ -51,7 +51,9 @@ jobs:
         username: ${{ secrets.VPS_USERNAME }}     
         key: ${{ secrets.VPS_SSH_KEY }}
         port: 22
-        script: pgrep java | xargs kill -9
+        script: |
+          sudo /etc/init.d/my-demo-app stop
+          sudo rm -rf /etc/init.d/my-demo-app
         
     - name: Start app
       uses: appleboy/ssh-action@master
@@ -60,5 +62,7 @@ jobs:
         username: ${{ secrets.VPS_USERNAME }}     
         key: ${{ secrets.VPS_SSH_KEY }}
         port: 22
-        script: java -jar ~/app/*.jar
+        script: |
+          sudo ln -s -f ~/app/*.jar /etc/init.d/my-demo-app
+          sudo /etc/init.d/my-app start
         
